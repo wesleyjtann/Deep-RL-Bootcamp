@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-vnc_port=$("$DIR/findport.py" 3000 1)
-viskit_port=$("$DIR/findport.py" 5000 1)
+vnc_port=$("$DIR/findport.sh" 3000 1)
+viskit_port=$("$DIR/findport.sh" 5000 1)
 if hash nvidia-docker 2>/dev/null; then
     docker=nvidia-docker
 else

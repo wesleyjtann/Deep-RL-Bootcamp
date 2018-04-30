@@ -1,10 +1,7 @@
 #!/usr/bin/env python
-#
-# Usage: findport.py 3000 100
-#
 
 """
-This project was developed by Rocky Duan, Peter Chen, Pieter Abbeel for the Berkeley Deep RL Bootcamp, August 2017. Bootcamp website with slides and lecture videos: https://sites.google.com/view/deep-rl-bootcamp/.
+This project was developed by Rein Houthooft, Rocky Duan, Peter Chen, Pieter Abbeel for the Berkeley Deep RL Bootcamp, August 2017. Bootcamp website with slides and lecture videos: https://sites.google.com/view/deep-rl-bootcamp/.
 
 Copyright 2017 Deep RL Bootcamp Organizers.
 
@@ -17,27 +14,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 """
 
 
-from __future__ import print_function
-import socket
-from contextlib import closing
-import sys
-
-if len(sys.argv) != 3:
-    print("Usage: {} <base_port> <increment>".format(sys.argv[0]))
-    sys.exit(1)
-
-base = int(sys.argv[1])
-increment = int(sys.argv[2])
-
-
-def find_free_port():
-    with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as s:
-        for port in range(base, 65536, increment):
-            try:
-                s.bind(('', port))
-                return s.getsockname()[1]
-            except socket.error:
-                continue
+def main():
+    import roboschool
+    import gym
+    import chainer
+    env = gym.make('CartPole-v0')
+    env.reset()
+    env.step(env.action_space.sample())
+    env = gym.make('RoboschoolHalfCheetah-v1')
+    env.reset()
+    env.step(env.action_space.sample())
+    print("Your environment has been successfully set up!")
 
 
-print(find_free_port())
+if __name__ == "__main__":
+    main()

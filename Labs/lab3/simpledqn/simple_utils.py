@@ -1,5 +1,7 @@
 """
-This project was developed by Rocky Duan, Peter Chen, Pieter Abbeel for the Berkeley Deep RL Bootcamp, August 2017. Bootcamp website with slides and lecture videos: https://sites.google.com/view/deep-rl-bootcamp/.
+This project was developed by Rein Houthooft, Rocky Duan, Peter Chen, Pieter Abbeel for the Berkeley Deep RL Bootcamp, August 2017. Bootcamp website with slides and lecture videos: https://sites.google.com/view/deep-rl-bootcamp/.
+
+Code adapted from OpenAI Baselines: https://github.com/openai/baselines
 
 Copyright 2017 Deep RL Bootcamp Organizers.
 
@@ -10,7 +12,6 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 """
-
 
 
 import numpy as np
@@ -42,8 +43,7 @@ def gradient_check(f, g, x):
         print("Gradient check passed!")
     except AssertionError as e:
         print(e)
-        print("Error: Gradient check didn't pass!")
-        exit()
+        print("Warning: Gradient check didn't pass!")
 
 
 def log_softmax(logits):
@@ -71,14 +71,8 @@ def include_bias(x):
 
 
 _tested = set()
-_tests = dict()
 
 nprs = np.random.RandomState
-
-
-def register_test(fn_name, kwargs, desired_output=None):
-    assert fn_name not in _tests
-    _tests[fn_name] = (kwargs, desired_output)
 
 
 def assert_allclose(a, b):
@@ -96,15 +90,10 @@ def assert_allclose(a, b):
         raise NotImplementedError
 
 
-def test_once(fn):
-    module = fn.__module__
-    name = fn.__name__
-    key = module + "." + name
-    if key in _tested:
+def test_once(fn, kwargs, desired_output=None):
+    if fn.__name__ in _tested:
         return
-    assert key in _tests, "Test for %s not found!" % key
-    kwargs, desired_output = _tests[key]
-    _tested.add(key)
+    _tested.add(fn.__name__)
 
     if callable(kwargs):
         kwargs = kwargs()
@@ -113,14 +102,13 @@ def test_once(fn):
         desired_output = desired_output()
 
     if desired_output is None:
-        print("Desired output for %s:" % key, repr(fn(**kwargs)))
+        print("Desired output for %s:" % (fn.__name__), repr(fn(**kwargs)))
         exit()
     else:
         try:
             output = fn(**kwargs)
             assert_allclose(desired_output, output)
-            print("Test for %s passed!" % key)
+            print("Test for %s passed!" % (fn.__name__))
         except AssertionError as e:
             print(e)
-            print("Error: test for %s didn't pass!" % key)
-            exit()
+            print("Warning: test for %s didn't pass!" % (fn.__name__))
