@@ -1,0 +1,44 @@
+[2018-05-01 13:02:37.252297 UTC] Starting env pool
+[2018-05-01 13:02:37.325472 UTC] Starting iteration 0
+[2018-05-01 13:02:37.325727 UTC] Start collecting samples
+[2018-05-01 13:02:38.883914 UTC] Computing input variables for policy optimization
+[2018-05-01 13:02:39.047040 UTC] Performing policy update
+[2018-05-01 13:02:39.047460 UTC] Computing gradient in Euclidean space
+[2018-05-01 13:02:39.107308 UTC] Computing approximate natural gradient using conjugate gradient algorithm
+[2018-05-01 13:02:39.687234 UTC] Performing line search
+[2018-05-01 13:02:39.768959 UTC] Updating baseline
+[2018-05-01 13:02:40.469932 UTC] Computing logging information
+-------------------------------------
+| Iteration            | 0          |
+| ExpectedImprovement  | 0.034956   |
+| ActualImprovement    | 0.033501   |
+| ImprovementRatio     | 0.95839    |
+| MeanKL               | 0.0065911  |
+| Entropy              | 8.5136     |
+| Perplexity           | 4982.2     |
+| AveragePolicyStd     | 1          |
+| AveragePolicyStd[0]  | 1          |
+| AveragePolicyStd[1]  | 1          |
+| AveragePolicyStd[2]  | 1          |
+| AveragePolicyStd[3]  | 1          |
+| AveragePolicyStd[4]  | 1          |
+| AveragePolicyStd[5]  | 1          |
+| AverageReturn        | -11.695    |
+| MinReturn            | -56.6      |
+| MaxReturn            | -0.13484   |
+| StdReturn            | 6.6191     |
+| AverageEpisodeLength | 17.9       |
+| MinEpisodeLength     | 12         |
+| MaxEpisodeLength     | 44         |
+| StdEpisodeLength     | 5.5525     |
+| TotalNEpisodes       | 267        |
+| TotalNSamples        | 4873       |
+| ExplainedVariance    | -0.0085795 |
+-------------------------------------
+[2018-05-01 13:02:40.532602 UTC] Saving snapshot
+[2018-05-01 13:02:40.536957 UTC] Starting iteration 1
+[2018-05-01 13:02:40.537061 UTC] Start collecting samples
+[2018-05-01 13:02:42.141554 UTC] Computing input variables for policy optimization
+[2018-05-01 13:02:42.341868 UTC] Performing policy update
+[2018-05-01 13:02:42.342239 UTC] Computing gradient in Euclidean space
+[2018-05-01 13:02:42.405227 UTC] Computing approximate natural gradient using conjugate gradient algorithm

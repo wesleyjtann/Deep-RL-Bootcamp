@@ -162,8 +162,10 @@ def trpo(env, env_maker, policy, baseline, n_envs=mp.cpu_count(), last_iter=-1, 
                     :param all_advs: A chainer variable, which should be a vector of size N
                     :return: A chainer variable, which should be a scalar
                     """
-                    surr_loss = Variable(np.array(0.))
+                    surr_loss = Variable(np.array(0., dtype=np.float32)) # set dtype
                     "*** YOUR CODE HERE ***"
+                    likelihood_ratio = new_dists.likelihood_ratio(old_dists, all_acts) # L_old (eq8)
+                    surr_loss -= F.mean(likelihood_ratio * all_advs)
                     return surr_loss
 
                 def compute_kl(old_dists, new_dists):
@@ -172,8 +174,9 @@ def trpo(env, env_maker, policy, baseline, n_envs=mp.cpu_count(), last_iter=-1, 
                     :param new_dists: An instance of subclass of Distribution
                     :return: A chainer variable, which should be a scalar
                     """
-                    kl = Variable(np.array(0.))
+                    kl = Variable(np.array(0., dtype=np.float32)) # set dtype
                     "*** YOUR CODE HERE ***"
+                    kl += F.mean(old_dists.kl_div(new_dists))
                     return kl
 
                 test_once(compute_surr_loss)
